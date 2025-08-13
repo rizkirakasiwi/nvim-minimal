@@ -45,3 +45,50 @@ vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper win
 -- vim.keymap.set("n", "<C-S-l>", "<C-w>L", { desc = "Move window to the right" })
 -- vim.keymap.set("n", "<C-S-j>", "<C-w>J", { desc = "Move window to the lower" })
 -- vim.keymap.set("n", "<C-S-k>", "<C-w>K", { desc = "Move window to the upper" })
+
+-- Terminal
+local terminal_win = nil
+vim.keymap.set("n", "tt", function()
+  -- Check if terminal window is already open
+  if terminal_win and vim.api.nvim_win_is_valid(terminal_win) then
+    vim.api.nvim_win_close(terminal_win, false)
+    terminal_win = nil
+    return
+  end
+
+  -- Check if terminal buffer exists
+  local terminal_buf = nil
+  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+    if vim.api.nvim_buf_is_valid(buf) and vim.bo[buf].buftype == "terminal" then
+      terminal_buf = buf
+      break
+    end
+  end
+
+  -- Create new terminal buffer if none exists
+  if not terminal_buf then
+    terminal_buf = vim.api.nvim_create_buf(false, true)
+  end
+
+  local width = math.floor(vim.o.columns * 0.8)
+  local height = math.floor(vim.o.lines * 0.8)
+  local row = math.floor((vim.o.lines - height) / 2)
+  local col = math.floor((vim.o.columns - width) / 2)
+
+  terminal_win = vim.api.nvim_open_win(terminal_buf, true, {
+    relative = "editor",
+    width = width,
+    height = height,
+    row = row,
+    col = col,
+    style = "minimal",
+    border = "rounded",
+  })
+
+  -- Start terminal if buffer is new
+  if
+    vim.api.nvim_buf_line_count(terminal_buf) == 1 and vim.api.nvim_buf_get_lines(terminal_buf, 0, 1, false)[1] == ""
+  then
+    vim.cmd("terminal")
+  end
+end, { desc = "Toggle floating terminal" })
