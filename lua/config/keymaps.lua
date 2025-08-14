@@ -14,7 +14,28 @@ vim.keymap.set("n", "]q", "<cmd>cnext<CR>zz", { desc = "[Q]uickfix next" })
 vim.keymap.set("n", "[q", "<cmd>cprev<CR>zz", { desc = "[Q]uikfix previous" })
 vim.keymap.set("n", "]b", "<cmd>bprevious<CR>zz", { desc = "[B]uffer previous" })
 vim.keymap.set("n", "[b", "<cmd>bnext<CR>zz", { desc = "[B]uffer next" })
+-- dap
+vim.keymap.set("n", "<Leader>dl", "<cmd>lua require'dap'.step_into()<CR>", { desc = "Debugger step into" })
+vim.keymap.set("n", "<Leader>dj", "<cmd>lua require'dap'.step_over()<CR>", { desc = "Debugger step over" })
+vim.keymap.set("n", "<Leader>dk", "<cmd>lua require'dap'.step_out()<CR>", { desc = "Debugger step out" })
+vim.keymap.set("n", "<Leader>dc", "<cmd>lua require'dap'.continue()<CR>", { desc = "Debugger continue" })
+vim.keymap.set(
+  "n",
+  "<Leader>db",
+  "<cmd>lua require'dap'.toggle_breakpoint()<CR>",
+  { desc = "Debugger toggle breakpoint" }
+)
+vim.keymap.set(
+  "n",
+  "<Leader>dd",
+  "<cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>",
+  { desc = "Debugger set conditional breakpoint" }
+)
+vim.keymap.set("n", "<Leader>de", "<cmd>lua require'dap'.terminate()<CR>", { desc = "Debugger reset" })
+vim.keymap.set("n", "<Leader>dr", "<cmd>lua require'dap'.run_last()<CR>", { desc = "Debugger run last" })
 
+-- rustaceanvim
+vim.keymap.set("n", "<Leader>dt", "<cmd>lua vim.cmd('RustLsp testables')<CR>", { desc = "Debugger testables" })
 vim.keymap.set("n", "<leader>dq", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier

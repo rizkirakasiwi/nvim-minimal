@@ -108,7 +108,7 @@ This configuration takes the solid foundation of kickstart.nvim and restructures
 │       ├── completion.lua                # blink.cmp autocompletion
 │       ├── formatting.lua                # Code formatting with conform.nvim
 │       ├── lsp.lua                       # LSP configuration
-│       ├── neotree.lua                   # File explorer
+│       ├── rustaceanvim.lua              # Rust development setup
 │       ├── telescope.lua                 # Fuzzy finder
 │       ├── treesitter.lua                # Syntax highlighting
 │       └── ui.lua                        # UI enhancements
@@ -123,13 +123,42 @@ This configuration takes the solid foundation of kickstart.nvim and restructures
 
 ## 🔧 Language Servers
 
-The following language server is configured by default:
+The following language servers are configured:
 
 | Language | Server | Features |
 |----------|--------|----------|
 | Lua | lua_ls | Neovim configuration development |
+| Rust | rust-analyzer | Full Rust development with rustaceanvim |
 
-### Adding Language Servers
+### Rust Development Setup
+
+This configuration includes a comprehensive Rust development environment with:
+- **rustaceanvim**: Advanced Rust plugin with enhanced features
+- **Inlay hints**: Type hints, parameter names, and more
+- **Enhanced diagnostics**: Better error reporting and suggestions
+- **Code actions**: Automatic fixes and refactoring
+- **Testing integration**: Run tests directly from the editor
+- **Debugging support**: Ready for nvim-dap integration
+
+#### Rust-Specific Keymaps (Active in .rs files)
+| Key | Action |
+|-----|--------|
+| `<leader>ca` | Code actions |
+| `K` | Enhanced hover with actions |
+| `<leader>rr` | Run current target |
+| `<leader>rd` | Debug current target |
+| `<leader>rt` | Run tests |
+| `<leader>re` | Explain errors |
+| `<leader>rc` | Open Cargo.toml |
+| `<leader>rm` | Expand macros |
+| `<leader>rp` | Go to parent module |
+| `<leader>rj` | Join lines |
+| `<leader>rs` | Structural search/replace |
+| `<leader>rg` | Show crate graph |
+| `<leader>rh/rM` | View HIR/MIR |
+| `<leader>rw` | Workspace symbols |
+
+### Adding More Language Servers
 
 To add additional language servers, edit `lua/plugins/lsp.lua` and uncomment or add servers to the `servers` table:
 
@@ -137,7 +166,6 @@ To add additional language servers, edit `lua/plugins/lsp.lua` and uncomment or 
 local servers = {
   -- clangd = {},      -- C++ support
   -- pyright = {},     -- Python support  
-  -- rust_analyzer = {}, -- Rust support
   lua_ls = {
     -- Already configured
   },
@@ -147,7 +175,6 @@ local servers = {
 Popular language servers include:
 - **Python**: `pyright` - Type checking, IntelliSense, imports
 - **C++**: `clangd` - Completion, diagnostics, refactoring  
-- **Rust**: `rust_analyzer` - Completion, diagnostics, refactoring, type hints
 - **JavaScript/TypeScript**: `ts_ls` - Full language support
 - **Go**: `gopls` - Go language server
 
@@ -199,9 +226,9 @@ keymap.set("n", "<leader>xx", ":YourCommand<CR>", { desc = "Description" })
 - **LSP not starting**: Check `:LspInfo` for server status
 - **Key bindings not working**: Verify no conflicts with terminal/tmux
 
-### Language-Specific Issues (When Added)
+### Language-Specific Issues
 - **Python (pyright)**: Check that Python is in your PATH
-- **Rust (rust-analyzer)**: Ensure Rust toolchain is installed via rustup
+- **Rust (rustaceanvim)**: Ensure Rust toolchain is installed via rustup. Use `rustup show` to verify active toolchain
 - **C++ (clangd)**: Create a `compile_commands.json` file for proper completions
 
 ## 📖 Learning Resources
