@@ -14,6 +14,7 @@ vim.keymap.set("n", "]q", "<cmd>cnext<CR>zz", { desc = "[Q]uickfix next" })
 vim.keymap.set("n", "[q", "<cmd>cprev<CR>zz", { desc = "[Q]uikfix previous" })
 vim.keymap.set("n", "]b", "<cmd>bprevious<CR>zz", { desc = "[B]uffer previous" })
 vim.keymap.set("n", "[b", "<cmd>bnext<CR>zz", { desc = "[B]uffer next" })
+vim.keymap.set("n", "<leader>bx", "<cmd>bdelete<CR>", { desc = "[B]uffer Delete" })
 -- dap
 vim.keymap.set("n", "<Leader>dl", "<cmd>lua require'dap'.step_into()<CR>", { desc = "Debugger step into" })
 vim.keymap.set("n", "<Leader>dj", "<cmd>lua require'dap'.step_over()<CR>", { desc = "Debugger step over" })
